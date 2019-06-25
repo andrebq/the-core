@@ -1,0 +1,23 @@
+syntax="proto3";
+
+package api;
+
+service Storage {
+    rpc Put(Content) returns (ContentID) {}
+    rpc Get(ContentID) returns (Content) {}
+}
+
+message ContentID {
+    string Alg = 1;
+    string HexHash = 2;
+}
+
+message Content {
+    bytes Body = 1;
+    repeated Tag tags = 2;
+}
+
+message Tag {
+    string Name = 1;
+    string Value = 2;
+}
