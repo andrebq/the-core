@@ -1,0 +1,25 @@
+syntax = "proto3";
+package api;
+
+service Router {
+    rpc NewPort(NewPortRequest) returns (NewPortResponse) {}
+    rpc Push(Payload) returns (Void) {}
+    rpc Pop(PopRequest) returns (Payload) {}
+}
+
+message NewPortRequest {}
+message NewPortResponse {
+    bytes PortID = 1;
+}
+
+message PopRequest {
+    bytes PortID = 1;
+}
+
+message Void {}
+
+message Payload {
+    bytes Source = 1;
+    bytes Dest = 2;
+    bytes Body = 3;
+}

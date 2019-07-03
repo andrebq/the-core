@@ -2,18 +2,18 @@ package main
 
 import (
 	"flag"
-	"os"
+	"github.com/andrebq/the-core/backend/api"
+	"github.com/andrebq/the-core/backend/server"
+	"github.com/andrebq/the-core/backend/storage"
+	"github.com/andrebq/the-core/backend/storage/dskdrv"
 	"github.com/sirupsen/logrus"
 	grpc "google.golang.org/grpc"
 	"net"
-	"github.com/andrebq/the-core/backend/storage"
-	"github.com/andrebq/the-core/backend/storage/dskdrv"
-	"github.com/andrebq/the-core/backend/server"
-	"github.com/andrebq/the-core/backend/api"
+	"os"
 )
 
 var (
-	bind = flag.String("bind", "0.0.0.0:20001", "Address to bind and listen for incoming requests")
+	bind     = flag.String("bind", "0.0.0.0:20001", "Address to bind and listen for incoming requests")
 	basePath = flag.String("base", "storaged_data", "Folder to store files")
 )
 
@@ -24,7 +24,6 @@ func main() {
 		logEntry().WithError(err).
 			WithField("basePath", *basePath).Fatal("unable to open blob storage")
 	}
-
 
 	lst, err := net.Listen("tcp4", *bind)
 	if err != nil {

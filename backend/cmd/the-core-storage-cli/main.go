@@ -1,21 +1,21 @@
 package main
 
 import (
+	"bufio"
+	"context"
 	"flag"
 	"fmt"
-	"io/ioutil"
-	"bufio"
-	"os"
-	"context"
-	"strings"
+	"github.com/andrebq/the-core/backend/api"
 	"github.com/sirupsen/logrus"
 	grpc "google.golang.org/grpc"
-	"github.com/andrebq/the-core/backend/api"
+	"io/ioutil"
+	"os"
+	"strings"
 )
 
 var (
 	server = flag.String("server", "localhost:20001", "Blob server address")
-	get = flag.Bool("get", false, "Read ContentIDs from stdin and print them to stdout, logs any errors and abort")
+	get    = flag.Bool("get", false, "Read ContentIDs from stdin and print them to stdout, logs any errors and abort")
 )
 
 func main() {
@@ -42,7 +42,7 @@ func doGet(conn api.StorageClient) {
 			logEntry().WithError(fmt.Errorf("invalid id: %v", id)).Fatal()
 		}
 		content, err := conn.Get(context.Background(), &api.ContentID{
-			Alg: parts[0],
+			Alg:     parts[0],
 			HexHash: parts[1],
 		})
 		if err != nil {

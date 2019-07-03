@@ -2,10 +2,10 @@
 package dskdrv
 
 import (
-	"github.com/peterbourgon/diskv"
 	"fmt"
-	"strings"
 	"github.com/andrebq/the-core/backend/storage"
+	"github.com/peterbourgon/diskv"
+	"strings"
 )
 
 type (
@@ -19,8 +19,8 @@ type (
 func New(base string) *Driver {
 	drv := &Driver{}
 	drv.db = diskv.New(diskv.Options{
-		BasePath: base,
-		Transform: transformFn,
+		BasePath:    base,
+		Transform:   transformFn,
 		Compression: diskv.NewZlibCompressionLevel(9),
 	})
 	return drv

@@ -1,9 +1,9 @@
 package server
 
 import (
-	"github.com/andrebq/the-core/backend/storage"
-	"github.com/andrebq/the-core/backend/api"
 	"context"
+	"github.com/andrebq/the-core/backend/api"
+	"github.com/andrebq/the-core/backend/storage"
 )
 
 type (
@@ -25,7 +25,7 @@ func (s *Storage) Put(ctx context.Context, content *api.Content) (*api.ContentID
 		return nil, err
 	}
 	return &api.ContentID{
-		Alg: id.Alg,
+		Alg:     id.Alg,
 		HexHash: id.ID,
 	}, nil
 }
@@ -34,7 +34,7 @@ func (s *Storage) Put(ctx context.Context, content *api.Content) (*api.ContentID
 func (s *Storage) Get(ctx context.Context, contentID *api.ContentID) (*api.Content, error) {
 	content, err := s.server.Get(storage.ContentID{
 		Alg: contentID.Alg,
-		ID: contentID.HexHash,
+		ID:  contentID.HexHash,
 	})
 	if err != nil {
 		return nil, err
